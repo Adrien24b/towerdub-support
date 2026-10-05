@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TowerDub Product Sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  /* Layout concept: a calm single-column technical sheet, like the printed spec leaflet that comes with a piece of studio gear.
+     Dark, warm brown ground taken from the app itself; each instrument keeps the colour it has in the rack. */
+  :root{
+    --bg:#171310;
+    --surface:#211a14;
+    --surface-2:#2b2118;
+    --line:rgba(240,225,205,0.14);
+    --line-strong:rgba(240,225,205,0.26);
+    --ink:#f2e6d6;
+    --ink-dim:#b9a892;
+    --ink-faint:#8d7b66;
+    --accent:#cc9e52;
+    --accent-soft:rgba(204,158,82,0.14);
+    --kick:#c17264; --snare:#c9a44f; --hats:#82ab9c; --perc:#c2bd6a;
+    --bass:#d4923f; --chords:#a888c9; --lead:#d38a5c; --pads:#7fa0c4; --sampler:#c0839a;
+    --f-display:'Fraunces', Georgia, 'Times New Roman', serif;
+    --f-body:'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --f-mono:'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    color-scheme:dark;
+  }
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]){
+      --bg:#efeae4; --surface:#f8f5f1; --surface-2:#ebe5de;
+      --line:rgba(36,28,21,0.14); --line-strong:rgba(36,28,21,0.28);
+      --ink:#241c15; --ink-dim:#5b4e41; --ink-faint:#7a6a59;
+      --accent:#8a5a14; --accent-soft:rgba(138,90,20,0.10);
+      --kick:#a9473a; --snare:#9a7a1f; --hats:#3f7c68; --perc:#80791a;
+      --bass:#a8671a; --chords:#7a56a3; --lead:#b0602f; --pads:#4a76a3; --sampler:#a2506c;
+      color-scheme:light;
+    }
+  }
+  :root[data-theme="light"]{
+    --bg:#efeae4; --surface:#f8f5f1; --surface-2:#ebe5de;
+    --line:rgba(36,28,21,0.14); --line-strong:rgba(36,28,21,0.28);
+    --ink:#241c15; --ink-dim:#5b4e41; --ink-faint:#7a6a59;
+    --accent:#8a5a14; --accent-soft:rgba(138,90,20,0.10);
+    --kick:#a9473a; --snare:#9a7a1f; --hats:#3f7c68; --perc:#80791a;
+    --bass:#a8671a; --chords:#7a56a3; --lead:#b0602f; --pads:#4a76a3; --sampler:#a2506c;
+    color-scheme:light;
+  }
+
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%; scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--f-body);
+    font-size:16px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    padding-inline:clamp(18px,5vw,48px);
+    padding-block:clamp(28px,6vw,64px) 80px;
+  }
+  .sheet{max-width:880px; margin:0 auto;}
+  a{color:var(--accent); text-underline-offset:3px;}
+  a:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:3px;}
+
+  h1,h2,h3{font-family:var(--f-display); color:var(--ink); text-wrap:balance; margin:0;}
+  h1{font-weight:700; font-size:clamp(2.6rem,7vw,4rem); line-height:1.02; letter-spacing:-0.01em;}
+  h2{font-weight:600; font-size:clamp(1.55rem,3.2vw,2rem); line-height:1.15;}
+  h3{font-weight:600; font-size:1.12rem; line-height:1.25;}
+  p{margin:0 0 14px; max-width:66ch;}
+  p:last-child{margin-bottom:0;}
+  strong{font-weight:700;}
+
+  .label{
+    font-family:var(--f-mono); font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent);
+  }
+
+  /* ---- header ---- */
+  header.top{display:flex; gap:clamp(16px,3vw,28px); align-items:center; flex-wrap:wrap;}
+  header.top img{width:88px; height:88px; border-radius:20px; border:1px solid var(--line-strong); flex:none;}
+  .head-text{min-width:0; flex:1 1 320px;}
+  .head-text .label{display:block; margin-bottom:10px;}
+  .tagline{margin-top:12px; font-size:1.12rem; color:var(--ink-dim); max-width:56ch;}
+  .facts-row{display:flex; flex-wrap:wrap; gap:8px; margin-top:20px;}
+  .chip{
+    font-family:var(--f-mono); font-size:0.74rem; letter-spacing:0.04em;
+    border:1px solid var(--line-strong); border-radius:999px; padding:5px 12px; color:var(--ink-dim);
+  }
+  nav.toc{
+    margin-top:36px; padding:14px 0; border-block:1px solid var(--line);
+    display:flex; flex-wrap:wrap; gap:6px 20px; font-size:0.88rem;
+  }
+  nav.toc a{color:var(--ink-dim); text-decoration:none;}
+  nav.toc a:hover{color:var(--accent);}
+
+  /* ---- sections ---- */
+  section{padding-top:clamp(40px,7vw,64px);}
+  section > .label{display:block; margin-bottom:10px;}
+  section > h2{margin-bottom:18px;}
+  .lead{font-size:1.1rem; color:var(--ink);}
+
+  .pillars{display:grid; grid-template-columns:repeat(3,1fr); gap:0; margin-top:26px; border-top:1px solid var(--line);}
+  .pillar{padding:20px 22px 4px 0; min-width:0;}
+  .pillar + .pillar{padding-left:22px; border-left:1px solid var(--line);}
+  .pillar h3{margin-bottom:6px;}
+  .pillar p{color:var(--ink-dim); font-size:0.95rem;}
+  @media (max-width:700px){
+    .pillars{grid-template-columns:1fr;}
+    .pillar,.pillar + .pillar{padding:18px 0 4px; border-left:0; border-bottom:1px solid var(--line);}
+  }
+
+  /* real sequence: the workflow */
+  .flow{list-style:none; margin:24px 0 0; padding:0; counter-reset:flow; display:grid; gap:0;}
+  .flow li{
+    counter-increment:flow; display:grid; grid-template-columns:44px 1fr; gap:14px;
+    padding:16px 0; border-bottom:1px solid var(--line); min-width:0;
+  }
+  .flow li::before{
+    content:counter(flow); font-family:var(--f-mono); font-size:0.95rem; color:var(--accent);
+    border:1px solid var(--line-strong); border-radius:50%; width:34px; height:34px; display:grid; place-items:center;
+  }
+  .flow h3{margin-bottom:4px;}
+  .flow p{color:var(--ink-dim); font-size:0.97rem;}
+
+  /* rack */
+  .rack{margin-top:22px; border-top:1px solid var(--line);}
+  .rack-row{
+    display:grid; grid-template-columns:110px minmax(0,1.5fr) minmax(0,1fr); gap:6px 24px;
+    padding:15px 0 15px 16px; border-bottom:1px solid var(--line); border-left:4px solid var(--c, var(--accent));
+  }
+  .rack-row .name{font-family:var(--f-display); font-weight:700; font-size:1.1rem; color:var(--c);}
+  .rack-row .voice{color:var(--ink); font-size:0.95rem;}
+  .rack-row .knobs{font-family:var(--f-mono); font-size:0.8rem; color:var(--ink-dim); line-height:1.7;}
+  @media (max-width:700px){
+    .rack-row{grid-template-columns:1fr; gap:4px;}
+  }
+  .rack-note{margin-top:14px; font-size:0.9rem; color:var(--ink-faint);}
+
+  /* instrument detail */
+  .inst{padding:22px 0 22px 18px; border-bottom:1px solid var(--line); border-left:4px solid var(--c, var(--accent));}
+  .inst:first-of-type{border-top:1px solid var(--line);}
+  .inst h3{color:var(--c); margin-bottom:8px;}
+  .inst p{color:var(--ink-dim); font-size:0.97rem;}
+  .inst p b{color:var(--ink); font-weight:600;}
+  .group-title{font-family:var(--f-mono); font-size:0.74rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-faint); margin:34px 0 4px;}
+
+  /* lists */
+  ul.plain{margin:14px 0 0; padding:0; list-style:none;}
+  ul.plain li{padding:10px 0 10px 18px; border-bottom:1px solid var(--line); position:relative; color:var(--ink-dim); font-size:0.97rem;}
+  ul.plain li::before{content:""; position:absolute; left:0; top:1.1em; width:7px; height:7px; border-radius:50%; background:var(--accent);}
+  ul.plain li b{color:var(--ink); font-weight:600;}
+  ul.plain li:first-child{border-top:1px solid var(--line);}
+
+  .callout{
+    margin-top:26px; padding:20px 22px; background:var(--accent-soft); border:1px solid var(--line-strong); border-radius:12px;
+  }
+  .callout h3{margin-bottom:8px;}
+  .callout p{color:var(--ink-dim); font-size:0.97rem;}
+
+  /* spec list */
+  dl.spec{margin:18px 0 0; display:grid; grid-template-columns:minmax(120px,190px) 1fr; border-top:1px solid var(--line);}
+  dl.spec dt, dl.spec dd{padding:11px 0; border-bottom:1px solid var(--line); margin:0; min-width:0;}
+  dl.spec dt{font-family:var(--f-mono); font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-faint); padding-right:14px;}
+  dl.spec dd{overflow-wrap:anywhere;}
+  @media (max-width:560px){
+    dl.spec{grid-template-columns:1fr;}
+    dl.spec dt{border-bottom:0; padding-bottom:0;}
+  }
+
+  footer{margin-top:64px; padding-top:20px; border-top:1px solid var(--line); color:var(--ink-faint); font-size:0.88rem;}
+
+  @media print{
+    :root, :root:not([data-theme="dark"]){
+      --bg:#fff; --surface:#fff; --surface-2:#f3f3f3; --line:rgba(0,0,0,0.18); --line-strong:rgba(0,0,0,0.3);
+      --ink:#111; --ink-dim:#333; --ink-faint:#555; --accent:#7a4e0e; --accent-soft:#f6efe3;
+      --kick:#a9473a; --snare:#8a6c18; --hats:#3f7c68; --perc:#6f6a15; --bass:#a8671a; --chords:#7a56a3; --lead:#b0602f; --pads:#4a76a3; --sampler:#a2506c;
+      color-scheme:light;
+    }
+    body{padding:0; font-size:11pt;}
+    section{break-inside:avoid-page; padding-top:28px;}
+    .rack-row,.inst,.flow li{break-inside:avoid;}
+    nav.toc{display:none;}
+  }
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+</style>
+</head><body>
+
+<div class="sheet">
+
+<header class="top">
+  <img src="data:image/png;base64,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" alt="TowerDub app icon">
+  <div class="head-text">
+    <span class="label">Product sheet · Version 1.1</span>
+    <h1>TowerDub</h1>
+    <p class="tagline">An all-in-one groovebox for building reggae riddims and mixing dub, live. Made for iPhone and iPad.</p>
+  </div>
+</header>
+<div class="facts-row">
+  <span class="chip">iPhone &amp; iPad</span>
+  <span class="chip">iOS 17 or later</span>
+  <span class="chip">App Store · 1.1</span>
+  <span class="chip">Fully on-device</span>
+</div>
+
+<nav class="toc" aria-label="Sections">
+  <a href="#idea">The idea</a>
+  <a href="#play">How it plays</a>
+  <a href="#rack">The rack</a>
+  <a href="#synthesis">Synthesis</a>
+  <a href="#sequencer">Sequencer</a>
+  <a href="#dub">Effects &amp; dub tools</a>
+  <a href="#record">Recording &amp; projects</a>
+  <a href="#tutorial">Tutorial</a>
+  <a href="#engine">Under the hood</a>
+  <a href="#facts">Facts</a>
+</nav>
+
+<section id="idea">
+  <span class="label">The idea</span>
+  <h2>One instrument to build the riddim, and play the desk.</h2>
+  <p class="lead">TowerDub started from a simple wish: a single, tactile instrument where you program a reggae riddim and then perform the dub, the way a mix was once played on the desk, in one live take.</p>
+  <p>It is a groovebox in the compact sense: one rack that shows every instrument and its mixer controls at a glance, and one editor per instrument for the details. The sound and the workflow follow the dub tradition: cut-outs, echo throws, filter sweeps and a siren, all played live and recorded as they happen.</p>
+  <div class="pillars">
+    <div class="pillar"><h3>Roots, warm, never bright</h3><p>Sine-based low end, soft saturation, dark filter ceilings and a delay that wears down each repeat. The aim is a worn, muted sound, not a shiny one.</p></div>
+    <div class="pillar"><h3>Built for touch</h3><p>Knobs are dragged horizontally so the page can still scroll. The keyboard maps to scale degrees, not to a piano. Everything is made for fingers on glass.</p></div>
+    <div class="pillar"><h3>Everything in one rack</h3><p>Nine instruments, five effect blocks, one transport. Volume, delay send, reverb send and a CUT button sit on every line.</p></div>
+  </div>
+</section>
+
+<section id="play">
+  <span class="label">How it plays</span>
+  <h2>From a blank grid to an exported dubplate.</h2>
+  <ol class="flow">
+    <li><div><h3>Build the riddim</h3><p>Place steps on a 16th-note grid for four drum voices, and notes for bass, chords, lead, pads and a sampler. Each instrument has four patterns and its own length, from 16 to 128 steps.</p></div></li>
+    <li><div><h3>Shape the sound</h3><p>Every instrument has five sound controls, and a long press on a step lets those controls change that step alone (parameter locks). Each step can also carry a trigger probability.</p></div></li>
+    <li><div><h3>Send it into the space</h3><p>Each line has its own delay send and reverb send, feeding a tape-style echo and a dark reverb shared by the whole rack.</p></div></li>
+    <li><div><h3>Dub it live</h3><p>Hit CUT on a line, route instruments through the resonant Dub Filter, throw echoes, freeze the delay, play the siren. The mix is the performance.</p></div></li>
+    <li><div><h3>Record and export</h3><p>Dub Record captures the whole stereo mix to a WAV file, ready to share from the system share sheet.</p></div></li>
+  </ol>
+</section>
+
+<section id="rack">
+  <span class="label">The rack</span>
+  <h2>Nine instruments, five sound controls each.</h2>
+  <p>Every line is a separate bus with its own Vol, Delay send, Reverb send and CUT. Each instrument has its own colour in the app, repeated here.</p>
+  <div class="rack">
+    <div class="rack-row" style="--c:var(--kick)"><span class="name">Kick</span><span class="voice">Sine body with pitch glide, harmonic Tone, tanh Drive</span><span class="knobs">Tune · Decay · Punch · Tone · Drive</span></div>
+    <div class="rack-row" style="--c:var(--snare)"><span class="name">Snare</span><span class="voice">Sine body plus band-passed noise and a rimshot-style click</span><span class="knobs">Tune · Decay · Snap · Tone · Noise</span></div>
+    <div class="rack-row" style="--c:var(--hats)"><span class="name">Hats</span><span class="voice">High-passed noise with metallic partials or a shaker grain</span><span class="knobs">Tune · Decay · Tone · Grain · Choke</span></div>
+    <div class="rack-row" style="--c:var(--perc)"><span class="name">Perc</span><span class="voice">Four-mode inharmonic bank, from tom to bell</span><span class="knobs">Tune · Decay · Morph · Drive · Resonance</span></div>
+    <div class="rack-row" style="--c:var(--bass)"><span class="name">Bass</span><span class="voice">Pure sine to triangle with a trace of saw, enveloped low-pass</span><span class="knobs">Filter · Decay · Morph · Attack · Drive</span></div>
+    <div class="rack-row" style="--c:var(--chords)"><span class="name">Chords</span><span class="voice">One diatonic triad per key, per-voice saturation, resonant sweep</span><span class="knobs">Morph · Warmth · Decay · Sweep · Spread</span></div>
+    <div class="rack-row" style="--c:var(--lead)"><span class="name">Lead</span><span class="voice">Held voice from drawbar organ, through pure sine, to reed and breath</span><span class="knobs">Attack · Morph · Decay · Filter · Width</span></div>
+    <div class="rack-row" style="--c:var(--pads)"><span class="name">Pads</span><span class="voice">Filtered-noise bed with detuned tonal layers and slow drift</span><span class="knobs">Grain · Tone · Morph · Swarm · Filter</span></div>
+    <div class="rack-row" style="--c:var(--sampler)"><span class="name">Sampler</span><span class="voice">Four slots, record in the app, trim, varispeed, tape macro</span><span class="knobs">Start/End · Attack · Release · Pitch · Tape</span></div>
+  </div>
+  <p class="rack-note">The rack also holds Delay, Reverb, Dub Filter, Dub Siren and a Mic input.</p>
+</section>
+
+<section id="synthesis">
+  <span class="label">Synthesis</span>
+  <h2>How each voice is made.</h2>
+  <p>All instrument voices are custom synthesis written for the app. Only the Delay and Reverb use Apple's built-in audio units. Several instruments have a <b>Morph</b> knob: one macro that moves the timbre across several keyframes, designed so that no position sounds better just because it is louder.</p>
+
+  <div class="group-title">Drums</div>
+  <div class="inst" style="--c:var(--kick)"><h3>Kick</h3><p>A sine from 27 to 110 Hz with an exponential decay of 40 to 390 ms. <b>Punch</b> adds a downward pitch glide and, in its upper half, a very short high-passed noise click. <b>Tone</b> adds second and third harmonics and a bell boost at 150 Hz. <b>Drive</b> is tanh saturation blended with the dry signal; the click is added after it, so it stays sharp.</p></div>
+  <div class="inst" style="--c:var(--snare)"><h3>Snare</h3><p>A sine body (140 to 320 Hz) plus white noise band-passed around 1.6 to 2.4 kHz. <b>Snap</b> sets how fast the noise comes in, and a small rimshot-style click is always present.</p></div>
+  <div class="inst" style="--c:var(--hats)"><h3>Hats</h3><p>White noise through a 6 to 10 kHz high-pass. <b>Grain</b> adds metallic partials above its midpoint (inharmonic ratios) and a gated shaker texture below it. <b>Choke</b> shortens the length of the hat.</p></div>
+  <div class="inst" style="--c:var(--perc)"><h3>Perc</h3><p>Modal synthesis: four inharmonic sine modes on a base between 90 and 400 Hz. <b>Morph</b> slides the mode ratios from a tom to a bell. <b>Resonance</b> sets the size and tail of a shell resonator, and a short noise transient gives the attack.</p></div>
+
+  <div class="group-title">Synths</div>
+  <div class="inst" style="--c:var(--bass)"><h3>Bass</h3><p>The reference sound is a <b>pure sine</b>. <b>Morph</b> moves from a sine with a sub-octave, through the pure sine at the centre, to a triangle with a trace of saw. <b>Drive</b> saturates before a two-pole low-pass (80 to 1,600 Hz, logarithmic). The filter cutoff follows each note's envelope: it opens on the attack and settles back, which gives the classic dub "wow". Sequenced notes end smoothly just before the next note starts, like a monophonic bass line.</p></div>
+  <div class="inst" style="--c:var(--chords)"><h3>Chords</h3><p>Each key plays a <b>diatonic triad</b> (root, third, fifth) from the active scale, so a chord always agrees with the bass. <b>Warmth</b> is tanh saturation applied to each of the three voices before they are summed, which avoids the muddy intermodulation of saturating a whole chord. <b>Spread</b> detunes the third and fifth by up to 35 cents. <b>Sweep</b> is a resonant low-pass that opens on each hit and closes again with the chord. <b>Morph</b> runs from sine, through triangle, to saw and pulse.</p></div>
+  <div class="inst" style="--c:var(--lead)"><h3>Lead</h3><p>A held, breathing voice. Below the centre of <b>Morph</b>, drawbar organ harmonics with a hint of preamp grain; at the centre, a pure sine; above it, a triangle moving to a saw with a formant resonance and breath noise that follows the note. <b>Filter</b> covers roughly 220 Hz to 3 kHz, <b>Width</b> detunes left and right oscillators by up to 18 cents, and <b>Attack</b> and <b>Decay</b> shape a slow swell and a soft release.</p></div>
+  <div class="inst" style="--c:var(--pads)"><h3>Pads</h3><p>A bed of low-passed noise (<b>Grain</b> sets how dark it is) under a tonal layer built from detuned voice pairs (<b>Swarm</b>). A slow LFO makes the filter breathe, and <b>Morph</b> also adds a very slow pitch drift of a few cents. The envelope is long, about two seconds.</p></div>
+  <div class="inst" style="--c:var(--sampler)"><h3>Sampler</h3><p>Record a sound with the microphone (tap REC, tap again to stop, up to 8 seconds), trim the start and end on a waveform, then place it on the grid. Four slots, each with its own patterns. <b>Pitch</b> is varispeed over plus or minus one octave. <b>Tape</b> is a one-knob macro: towards the left, a darker, worn tape with saturation and gentle wow and flutter; towards the right, a thin "radio" band.</p></div>
+</section>
+
+<section id="sequencer">
+  <span class="label">Sequencer</span>
+  <h2>Sixteenth-note steps, with room to breathe.</h2>
+  <ul class="plain">
+    <li><b>Length and patterns.</b> 16, 32, 64 or 128 steps per pattern, set independently for each instrument, with four patterns per instrument. Changing pattern while playing is queued so it lands cleanly: at the next bar for the drums, at the end of the pattern for the synths.</li>
+    <li><b>Velocity.</b> Three levels on the drums (Strong, Medium, Ghost). On the keyboards, velocity comes from where the finger lands on the key.</li>
+    <li><b>Parameter locks.</b> Long-press a step and the instrument's knobs edit only that step. Available on drums, Bass, Chords and the Sampler.</li>
+    <li><b>Trigger probability.</b> 100, 75, 50 or 25 percent per step, drawn on every pass of the loop.</li>
+    <li><b>Groove.</b> Swing from 0 to 50 percent delays only the off-beat sixteenths. Tempo runs 40 to 200 BPM; a new project starts at 68, a one-drop feel.</li>
+    <li><b>Scales.</b> Natural minor, Dorian, Mixolydian, minor pentatonic and chromatic. The scale is shared by all melodic instruments, so everything stays in key. The keyboard has 12 keys on two rows and shifts by whole scale octaves.</li>
+    <li><b>Live recording.</b> REC overdubs notes quantized to the nearest step. The real length of each note is captured when the key is released.</li>
+    <li><b>Editing.</b> Copy and paste a pattern, CLEAR with a RESTORE safety net.</li>
+  </ul>
+</section>
+
+<section id="dub">
+  <span class="label">Effects &amp; dub tools</span>
+  <h2>The desk, played live.</h2>
+  <ul class="plain">
+    <li><b>CUT.</b> A push-button on every line. Changes are ramped over about 16 ms so a cut never clicks.</li>
+    <li><b>Delay.</b> Time up to 1.5 seconds, Feedback up to 100 percent, Mix, and SYNC buttons that set the time from the tempo (quarter, dotted eighth, eighth, dotted sixteenth, sixteenth). <b>Age</b> darkens every repeat through a low-pass inside the loop, from 12 kHz down to 1.5 kHz, for a worn-tape character. <b>FREEZE</b> holds the echo by closing the delay's input while you press.</li>
+    <li><b>Reverb.</b> <b>Space</b> steps through six spaces, from plate to cathedral, and the old tail is cross-faded rather than cut when you change it. <b>Pre</b> sets 0 to 150 ms of pre-delay, <b>Tone</b> darkens it and adds low-end weight. It is meant to sound dark and bass-resonant, not hi-fi.</li>
+    <li><b>Dub Filter.</b> A resonant filter in the King Tubby tradition. One big Cutoff knob: centre is neutral, left closes the low-pass, right lifts the high-pass. <b>Res</b> narrows the band. Eight switches choose which instruments go through it, so you can sweep the drums and leave the bass alone.</li>
+    <li><b>Dub Siren.</b> A sine carrier (150 to 900 Hz) modulated by an LFO, with Tune, Rate and Mode. Hold the pad to sound it; it has its own volume, delay and reverb sends.</li>
+    <li><b>Mic input.</b> A live pass-through with its own sends, to run a voice or a field sound through the echo.</li>
+    <li><b>Master.</b> Everything meets in a peak limiter before the output.</li>
+  </ul>
+</section>
+
+<section id="record">
+  <span class="label">Recording &amp; projects</span>
+  <h2>Capture the take, keep the versions.</h2>
+  <ul class="plain">
+    <li><b>Dub Record.</b> Taps the master output after the limiter, so you capture exactly what you hear: instruments, effects returns, siren and mic. The file is an uncompressed WAV, renamed, deleted or exported from the project menu with a swipe.</li>
+    <li><b>Projects and mixes.</b> A project holds the riddim (patterns, sound settings, tempo, swing, scale) and a list of <b>Mix</b> versions: effect settings, line levels, cuts, sends and filter switches. You can keep several dubs of the same riddim and switch between them without touching the arrangement.</li>
+    <li><b>Autosave.</b> Every five seconds and when the app goes to the background. A Demo Project is loaded on first launch so there is sound straight away.</li>
+  </ul>
+</section>
+
+<section id="tutorial">
+  <span class="label">Guided tutorial</span>
+  <h2>Learn it by doing it.</h2>
+  <p>Version 1.1 adds an interactive tutorial for people who have never used a music-making app. A welcome screen offers to start or skip it. Each step puts a ring on the real control and waits for you to do the gesture, then moves on.</p>
+  <p>It builds a riddim step by step in a throwaway project: drums, chords, bass, a live-recorded melody, a recorded sample, delay and reverb, then a live dub that is recorded and exported. If you finish at least one section, the result is kept as "My First Riddim". It can be replayed any time from the project menu.</p>
+</section>
+
+<section id="engine">
+  <span class="label">Under the hood</span>
+  <h2>How it keeps time.</h2>
+  <ul class="plain">
+    <li><b>Engine.</b> One audio engine at 44.1 kHz stereo. Each of the nine instruments has its own mixer, feeding the main mix and the delay, reverb and filter chains in parallel.</li>
+    <li><b>Clock.</b> A look-ahead scheduler ticks every 20 ms and places everything due in the next 100 ms at an absolute audio time, rather than relying on a loose timer.</li>
+    <li><b>Two playback paths.</b> Drums, Chords, sequenced Bass and the Sampler are rendered for every hit and placed to the sample. Lead, Pads and live-played Bass are real-time voices, started by a timer.</li>
+    <li><b>Built with</b> Swift, SwiftUI and AVAudioEngine. Delay and Reverb use Apple's audio units; all instrument and siren voices are custom DSP.</li>
+  </ul>
+  <div class="callout">
+    <h3>Scope of version 1.1</h3>
+    <p>TowerDub is self-contained: there is no MIDI, no AUv3 plug-in mode and no import of external audio files. Samples are recorded inside the app.</p>
+  </div>
+</section>
+
+<section id="facts">
+  <span class="label">Facts</span>
+  <h2>At a glance.</h2>
+  <dl class="spec">
+    <dt>App</dt><dd>TowerDub, version 1.1</dd>
+    <dt>Platforms</dt><dd>iPhone and iPad, iOS 17 or later</dd>
+    <dt>Developer</dt><dd>Adrien de Quatrebarbes</dd>
+    <dt>Language</dt><dd>English</dd>
+    <dt>Privacy</dt><dd>No personal data is collected. Everything you create stays on your device.</dd>
+    <dt>App Store</dt><dd><a href="https://apps.apple.com/app/id6806206082" target="_blank" rel="noopener">apps.apple.com/app/id6806206082</a></dd>
+    <dt>Home page</dt><dd><a href="https://adrien24b.github.io/towerdub-support/home/" target="_blank" rel="noopener">adrien24b.github.io/towerdub-support/home</a></dd>
+    <dt>Support</dt><dd><a href="https://adrien24b.github.io/towerdub-support/" target="_blank" rel="noopener">adrien24b.github.io/towerdub-support</a></dd>
+    <dt>Contact</dt><dd>towerdubsystem@gmail.com</dd>
+    <dt>PDF version</dt><dd><a href="TowerDub-Product-Sheet.pdf" target="_blank" rel="noopener">TowerDub-Product-Sheet.pdf</a></dd>
+    <dt>Live session</dt><dd><a href="https://youtu.be/8fSG7WkPwSw" target="_blank" rel="noopener">youtu.be/8fSG7WkPwSw</a></dd>
+  </dl>
+</section>
+
+<footer>TowerDub — built for the dub side of reggae.</footer>
+
+</div>
+</body></html>
